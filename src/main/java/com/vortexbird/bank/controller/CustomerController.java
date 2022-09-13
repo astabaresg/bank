@@ -24,7 +24,7 @@ public class CustomerController {
     @Autowired
     CustomerMapper customerMapper;
 
-    @GetMapping("/findAll")
+    @GetMapping()
     public ResponseEntity<?> findAll() throws Exception{
         List<Customer> customers = customerService.findAll();
         List<CustomerDTO> customerDTOS = customerMapper.toCustomerDTOs(customers);
@@ -32,7 +32,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerDTOS);
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Integer id) throws Exception{
         Customer customer = null;
         CustomerDTO customerDTO = null;
@@ -46,7 +46,7 @@ public class CustomerController {
         return  ResponseEntity.ok().body(customerDTO);
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public ResponseEntity<?> save(@RequestBody @Valid CustomerDTO customerDTO) throws Exception{
         Customer customer = customerMapper.toCustomer(customerDTO);
 
@@ -56,7 +56,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<?> update(@RequestBody @Valid CustomerDTO customerDTO) throws Exception{
         Customer customer = customerMapper.toCustomer(customerDTO);
 
@@ -66,7 +66,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerDTO);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id) throws Exception{
         customerService.deleteById(id);
         return ResponseEntity.ok().body(null);
